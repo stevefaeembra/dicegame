@@ -12,12 +12,12 @@ export default function DiceCard({ roll, hold }: Props) {
     <div className="grid grid-rows-2">
       <div>
         <figure>
-          <img className="object-fill h-48 w-96 shadow-2xl" src={diceFileName} alt={roll.toString()} />
+          <img className="object-contain shadow-2xl" src={diceFileName} alt={roll.toString()} />
         </figure>
       </div>
       <div>
         <figure>
-          <img className="object-fill h-48 w-96 shadow-2xl" src={holdFileName}></img>
+          <img className="object-contain shadow-2xl" src={holdFileName}></img>
         </figure>
       </div>
     </div>

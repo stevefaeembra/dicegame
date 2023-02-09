@@ -9,7 +9,7 @@ export default function RollButton({ rollsLeft }: Props) {
   return (
     <div>
       <figure>
-        <img className="object-fill h-48 w-96 shadow-2xl" src={rollsFileName}></img>
+        <img className="object-contain shadow-2xl" src={rollsFileName}></img>
       </figure>
     </div>
   );
