@@ -1,11 +1,8 @@
-import './App.css'
+import "./App.css";
+import DiceBoard from "./DiceBoard";
 
 function App() {
-
-  return (
-    <h1>Hello world</h1>
-  );
-
+  return <DiceBoard />;
 }
 
-export default App
+export default App;
