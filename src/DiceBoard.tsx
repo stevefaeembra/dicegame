@@ -7,7 +7,7 @@ type Props = {};
 export default function DiceBoard({}: Props) {
   return (
     <>
-      <div className="mx-auto my-0 w-3/4 grid items-start gap-0 grid-cols-6">
+      <div className="mx-auto my-0 w-3/4 grid items-start gap-0 grid-cols-2">
         <figure className="w-100">
           <img src="/img/logo.png" />
         </figure>
