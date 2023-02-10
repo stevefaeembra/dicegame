@@ -46,6 +46,7 @@ export function GameWrapper({}: Props) {
   const toggleHold = (dieNumber: number) => {
     // toggle hold status of given die number
     if (!game) return;
+    if (game.rollsLeft === 0) return;
     const newDice = game.dice.map((die, index) => {
       return index !== dieNumber
         ? die
