@@ -1,15 +1,18 @@
 import React from "react";
 import DiceCard from "./DiceCard";
 import RollButton from "./RollButton";
+import { GameState } from "./Types";
 
-type Props = {};
+type Props = {
+  gameState: GameState | undefined;
+};
 
-export default function DiceBoard({}: Props) {
+export default function DiceBoard({ gameState }: Props) {
   return (
     <div className="grid mx-auto grid-rows-2">
+      {/* logo */}
       <div className="mx-auto my-0 w-3/4 h-100 grid items-start gap-0 grid-cols-6">
         <div></div>
-
         <figure className="col-span-3 grow mx-auto">
           <img className="object-cover w-48" src="/img/logo.png" />
         </figure>
@@ -18,13 +21,14 @@ export default function DiceBoard({}: Props) {
         <div></div>
         <div></div>
       </div>
+      {/* dice board */}
       <div className="mx-auto my-0 w-3/4 grid items-start gap-0 grid-cols-6">
-        <RollButton rollsLeft={2} />
-        <DiceCard roll={1} hold={true} />
-        <DiceCard roll={6} hold={false} />
-        <DiceCard roll={2} hold={true} />
-        <DiceCard roll={1} hold={false} />
-        <DiceCard roll={3} hold={true} />
+        <RollButton rollsLeft={gameState.rollsLeft} />
+        <DiceCard die={gameState.dice[0]} />
+        <DiceCard die={gameState.dice[1]} />
+        <DiceCard die={gameState.dice[2]} />
+        <DiceCard die={gameState.dice[3]} />
+        <DiceCard die={gameState.dice[4]} />
       </div>
     </div>
   );

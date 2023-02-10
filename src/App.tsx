@@ -1,10 +1,10 @@
 import "./App.css";
-import DiceBoard from "./DiceBoard";
+import { GameWrapper } from "./GameWrapper";
 
 function App() {
   return (
     <div className="grid">
-      <DiceBoard />
+      <GameWrapper />
     </div>
   );
 }
