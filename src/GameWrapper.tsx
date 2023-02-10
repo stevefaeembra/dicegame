@@ -27,6 +27,7 @@ export function GameWrapper({}: Props) {
   const doRoll = () => {
     // roll each die which are not being held.
     if (!game) return;
+    if (game.rollsLeft === 0) return;
     const newDice = game.dice.map((die) =>
       die.hold
         ? die
@@ -37,6 +38,7 @@ export function GameWrapper({}: Props) {
     );
     setGame({
       ...game,
+      rollsLeft: game.rollsLeft > 0 ? game.rollsLeft - 1 : 0,
       dice: newDice,
     });
   };

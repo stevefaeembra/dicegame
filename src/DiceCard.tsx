@@ -12,12 +12,12 @@ export default function DiceCard({ die, triggerHold }: Props) {
   return (
     <div className="grid grid-rows-2">
       <div>
-        <figure>
+        <figure onClick={() => triggerHold()}>
           <img className="object-contain" src={diceFileName} alt={die.roll.toString()} />
         </figure>
       </div>
       <div>
-        <figure onClick={() => triggerHold(1)}>
+        <figure onClick={() => triggerHold()}>
           <img className="object-contain" src={holdFileName}></img>
         </figure>
       </div>
