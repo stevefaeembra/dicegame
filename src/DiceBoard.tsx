@@ -5,9 +5,10 @@ import { GameState } from "./Types";
 
 type Props = {
   gameState: GameState | undefined;
+  triggerRoll: Function;
 };
 
-export default function DiceBoard({ gameState }: Props) {
+export default function DiceBoard({ gameState, triggerRoll }: Props) {
   return (
     <div className="grid mx-auto grid-rows-2">
       {/* logo */}
@@ -23,7 +24,7 @@ export default function DiceBoard({ gameState }: Props) {
       </div>
       {/* dice board */}
       <div className="mx-auto my-0 w-3/4 grid items-start gap-0 grid-cols-6">
-        <RollButton rollsLeft={gameState.rollsLeft} />
+        <RollButton triggerRoll={() => triggerRoll()} rollsLeft={gameState.rollsLeft} />
         <DiceCard die={gameState.dice[0]} />
         <DiceCard die={gameState.dice[1]} />
         <DiceCard die={gameState.dice[2]} />

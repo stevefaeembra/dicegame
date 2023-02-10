@@ -2,14 +2,15 @@ import React from "react";
 
 type Props = {
   rollsLeft: Number;
+  triggerRoll: Function;
 };
 
-export default function RollButton({ rollsLeft }: Props) {
+export default function RollButton({ rollsLeft, triggerRoll }: Props) {
   const rollsFileName = `/img/roll${rollsLeft}.png`;
   return (
     <div>
       <figure>
-        <img className="object-contain shadow-2xl" src={rollsFileName}></img>
+        <img onClick={() => triggerRoll()} className="object-contain shadow-2xl" src={rollsFileName}></img>
       </figure>
     </div>
   );

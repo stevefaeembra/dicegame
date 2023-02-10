@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DiceBoard from "./DiceBoard";
 import { GameState } from "./Types";
+import { getPips } from "./Utils";
 
 type Props = {};
 
@@ -23,9 +24,26 @@ export function GameWrapper({}: Props) {
     console.log("new game", newGame);
   };
 
+  const doRoll = () => {
+    // roll each die which are not being held.
+    if (!game) return;
+    const newDice = game.dice.map((die) =>
+      die.hold
+        ? die
+        : {
+            roll: getPips(),
+            hold: die.hold,
+          }
+    );
+    setGame({
+      ...game,
+      dice: newDice,
+    });
+  };
+
   if (!game) {
     resetGame();
   }
 
-  return <DiceBoard gameState={game} />;
+  return <DiceBoard triggerRoll={doRoll} gameState={game} />;
 }
