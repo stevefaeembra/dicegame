@@ -3,7 +3,7 @@ import DiceBoard from "./DiceBoard";
 
 function App() {
   return (
-    <div className="grid grid-rows-2">
+    <div className="grid">
       <DiceBoard />
     </div>
   );
