@@ -41,9 +41,26 @@ export function GameWrapper({}: Props) {
     });
   };
 
+  const toggleHold = (dieNumber: number) => {
+    // toggle hold status of given die number
+    if (!game) return;
+    const newDice = game.dice.map((die, index) => {
+      return index !== dieNumber
+        ? die
+        : {
+            ...die,
+            hold: !die.hold,
+          };
+    });
+    setGame({
+      ...game,
+      dice: newDice,
+    });
+  };
+
   if (!game) {
     resetGame();
   }
 
-  return <DiceBoard triggerRoll={doRoll} gameState={game} />;
+  return <DiceBoard triggerHold={toggleHold} triggerRoll={doRoll} gameState={game} />;
 }
