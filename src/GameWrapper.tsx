@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DiceBoard from "./DiceBoard";
-import { GameState } from "./Types";
+import { Die, GameState } from "./Types";
 import { getPips } from "./Utils";
 
 type Props = {};
@@ -32,16 +32,90 @@ export function GameWrapper({}: Props) {
         { id: 10, name: "23456", score: 0, disabled: false },
         { id: 11, name: "Yacht", score: 0, disabled: false },
         { id: 12, name: "Chance", score: 0, disabled: false },
+        { id: 13, name: "3OAK", score: 0, disabled: false },
+        { id: 14, name: "4OAK", score: 0, disabled: false },
       ],
     };
     setGame(newGame);
     console.log("new game", newGame);
   };
 
+  const evaluateCurrentDice = (dice: Die[]) => {
+    // work out which score categories match the current dice
+    const rolls = dice.map((die) => die.roll).sort();
+    const rollsString = rolls.join("");
+    console.log("rollsString", rollsString);
+    const possibleScores = [];
+    // ones to sixes
+    if (rolls.includes(1)) {
+      possibleScores.push(1);
+    }
+    if (rolls.includes(2)) {
+      possibleScores.push(2);
+    }
+    if (rolls.includes(3)) {
+      possibleScores.push(3);
+    }
+    if (rolls.includes(4)) {
+      possibleScores.push(4);
+    }
+    if (rolls.includes(5)) {
+      possibleScores.push(5);
+    }
+    if (rolls.includes(6)) {
+      possibleScores.push(6);
+    }
+
+    // three of a kind
+    const threeofakind = ["111", "222", "333", "444", "555", "666"];
+
+    const findThreeOfAKind = threeofakind.find((a) => rollsString.indexOf(a) != -1);
+    if (findThreeOfAKind) {
+      possibleScores.push(13);
+    }
+
+    // four of a kind
+    const fourofakind = ["1111", "2222", "3333", "4444", "5555", "6666"];
+
+    const findTFourOfAKind = fourofakind.find((a) => rollsString.indexOf(a) != -1);
+    if (findTFourOfAKind) {
+      possibleScores.push(14);
+    }
+
+    // four in a row
+
+    const fourinarow = ["1234", "2345", "3456"];
+
+    const findFourInARow = fourinarow.find((a) => rollsString.indexOf(a) != -1);
+    if (findFourInARow) {
+      possibleScores.push(8);
+    }
+
+    if (rollsString === "12345") {
+      possibleScores.push(9);
+    }
+    if (rollsString === "23456") {
+      possibleScores.push(10);
+    }
+
+    // five of a kind
+    const fiveofakind = ["11111", "22222", "33333", "44444", "55555", "66666"];
+
+    const findFiveOfAKind = fourofakind.find((a) => rollsString.indexOf(a) != -1);
+    if (findFiveOfAKind) {
+      possibleScores.push(11);
+    }
+
+    console.log("Current rolls", rolls);
+    console.log(
+      "Matches",
+      possibleScores.map((x) => game?.scores[x - 1].name)
+    );
+  };
+
   const doRoll = () => {
     // roll each die which are not being held.
     if (!game) return;
-    if (game.rollsLeft === 0) return;
     const newDice = game.dice.map((die) =>
       die.hold
         ? die
@@ -50,6 +124,7 @@ export function GameWrapper({}: Props) {
             hold: die.hold,
           }
     );
+    evaluateCurrentDice(newDice);
     setGame({
       ...game,
       rollsLeft: game.rollsLeft > 0 ? game.rollsLeft - 1 : 0,
