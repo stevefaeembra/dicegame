@@ -1,6 +1,7 @@
 import React from "react";
 import DiceCard from "./DiceCard";
 import RollButton from "./RollButton";
+import ScoreCard from "./ScoreCard";
 import { GameState } from "./Types";
 
 type Props = {
@@ -11,9 +12,9 @@ type Props = {
 
 export default function DiceBoard({ gameState, triggerRoll, triggerHold }: Props) {
   return (
-    <div className="grid mx-auto grid-rows-2">
+    <div className="container grid mx-auto grid-rows-3">
       {/* logo */}
-      <div className="mx-auto my-0 w-3/4 h-100 grid items-start gap-0 grid-cols-6">
+      <div className="mx-auto my-0 w-100 h-100 grid items-start gap-0 grid-cols-6">
         <div></div>
         <figure className="col-span-3 grow mx-auto">
           <img className="object-cover w-48" src="/img/logo.png" />
@@ -32,6 +33,8 @@ export default function DiceBoard({ gameState, triggerRoll, triggerHold }: Props
         <DiceCard triggerHold={() => triggerHold(3)} die={gameState.dice[3]} />
         <DiceCard triggerHold={() => triggerHold(4)} die={gameState.dice[4]} />
       </div>
+      {/* scorecard */}
+      <ScoreCard />
     </div>
   );
 }
