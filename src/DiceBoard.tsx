@@ -5,12 +5,13 @@ import ScoreCard from "./ScoreCard";
 import { GameState } from "./Types";
 
 type Props = {
-  gameState: GameState | undefined;
+  gameState: GameState;
   triggerRoll: Function;
   triggerHold: Function;
 };
 
 export default function DiceBoard({ gameState, triggerRoll, triggerHold }: Props) {
+  if (!gameState) return;
   return (
     <div className="container grid mx-auto grid-rows-3">
       {/* logo */}
@@ -34,7 +35,7 @@ export default function DiceBoard({ gameState, triggerRoll, triggerHold }: Props
         <DiceCard triggerHold={() => triggerHold(4)} die={gameState.dice[4]} />
       </div>
       {/* scorecard */}
-      <ScoreCard />
+      <ScoreCard game={gameState} />
     </div>
   );
 }

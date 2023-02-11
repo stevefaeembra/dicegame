@@ -19,6 +19,20 @@ export function GameWrapper({}: Props) {
         { roll: 0, hold: false },
         { roll: 0, hold: false },
       ],
+      scores: [
+        { id: 1, name: "Ones", score: 0, disabled: false },
+        { id: 2, name: "Twos", score: 0, disabled: false },
+        { id: 3, name: "Threes", score: 0, disabled: false },
+        { id: 4, name: "Fours", score: 0, disabled: false },
+        { id: 5, name: "Fives", score: 0, disabled: false },
+        { id: 6, name: "Sixes", score: 0, disabled: false },
+        { id: 7, name: "2 & 3", score: 0, disabled: false },
+        { id: 8, name: "4 Line", score: 0, disabled: false },
+        { id: 9, name: "12345", score: 0, disabled: false },
+        { id: 10, name: "23456", score: 0, disabled: false },
+        { id: 11, name: "Yacht", score: 0, disabled: false },
+        { id: 12, name: "Chance", score: 0, disabled: false },
+      ],
     };
     setGame(newGame);
     console.log("new game", newGame);

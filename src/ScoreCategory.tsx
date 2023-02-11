@@ -1,18 +1,16 @@
 import React from "react";
+import { Category } from "./Types";
 
 type Props = {
-  name: string;
-  score: number;
-  showScore: boolean;
-  disabled: boolean;
+  category: Category;
 };
 
-export default function ScoreCategory({ name, score, showScore, disabled }: Props) {
+export default function ScoreCategory({ category }: Props) {
   return (
     <div>
-      <button className="btn gap-2">
-        {name}
-        <div className="badge">{score}</div>
+      <button key={`btn_${category.id}`} className="btn gap-2">
+        {category.name}
+        <div className="badge">{category.score}</div>
       </button>
     </div>
   );
