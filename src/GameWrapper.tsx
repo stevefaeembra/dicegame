@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DiceBoard from "./DiceBoard";
 import { Die, GameState } from "./Types";
-import { getPips, scoreChance, scoreMatching } from "./Utils";
+import { getPips, scoreChance, scoreMatching, scoreSpecificCategory } from "./Utils";
 
 type Props = {};
 
@@ -137,13 +137,15 @@ export function GameWrapper({}: Props) {
     // chance
     possibleScores.push(12);
 
-    console.log("Sum of 6", scoreMatching(dice, 6));
-    console.log("Choice score", scoreChance(dice));
-
-    console.log("Current rolls", rolls);
     console.log(
       "Matches",
-      possibleScores.map((x) => game?.scores[x - 1].name)
+      possibleScores.map((id) => {
+        return {
+          id,
+          name: game?.scores[id - 1].name,
+          score: scoreSpecificCategory(dice, id),
+        };
+      })
     );
   };
 
