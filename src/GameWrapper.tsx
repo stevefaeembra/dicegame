@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DiceBoard from "./DiceBoard";
 import { Die, GameState } from "./Types";
-import { getPips } from "./Utils";
+import { getPips, scoreChance, scoreMatching } from "./Utils";
 
 type Props = {};
 
@@ -137,6 +137,9 @@ export function GameWrapper({}: Props) {
     // chance
     possibleScores.push(12);
 
+    console.log("Sum of 6", scoreMatching(dice, 6));
+    console.log("Choice score", scoreChance(dice));
+
     console.log("Current rolls", rolls);
     console.log(
       "Matches",
@@ -156,7 +159,7 @@ export function GameWrapper({}: Props) {
           }
     );
     // following used to test rare combos
-    // newDice = _setDice([1, 2, 1, 1, 2]); // debug
+    // newDice = _setDice([1, 4, 5, 1, 3]); // debug
     evaluateCurrentDice(newDice);
     setGame({
       ...game,
