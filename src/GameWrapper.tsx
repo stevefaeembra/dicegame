@@ -44,9 +44,9 @@ export function GameWrapper({}: Props) {
     // work out which score categories match the current dice
     const rolls = dice.map((die) => die.roll).sort();
     const rollsString = rolls.join("");
-    // TODO: do a version which deduped
-    console.log("rollsString", rollsString);
+    console.log("rolls:", rollsString);
     const possibleScores = [];
+
     // ones to sixes
     if (rolls.includes(1)) {
       possibleScores.push(1);
@@ -83,6 +83,18 @@ export function GameWrapper({}: Props) {
       possibleScores.push(14);
     }
 
+    // full house (2 of one, 3 of another)
+    // Yacht does not count
+    const twoOfAKind = ["11", "22", "33", "44", "55", "66"];
+    if (findThreeOfAKind) {
+      const findTwoOfAKind = twoOfAKind.filter((a) => rollsString.indexOf(a) != -1);
+      // following makes sure numbers are different e.g. 11122
+      // rather than matching 11155 because it has 11 and 111
+      if (findTwoOfAKind && findTwoOfAKind.length > 1) {
+        possibleScores.push(7);
+      }
+    }
+
     // four in a row
 
     const fourinarow = [
@@ -104,9 +116,12 @@ export function GameWrapper({}: Props) {
       possibleScores.push(8);
     }
 
+    // small straight
     if (rollsString === "12345") {
       possibleScores.push(9);
     }
+
+    // big straight
     if (rollsString === "23456") {
       possibleScores.push(10);
     }
@@ -119,6 +134,9 @@ export function GameWrapper({}: Props) {
       possibleScores.push(11);
     }
 
+    // chance
+    possibleScores.push(12);
+
     console.log("Current rolls", rolls);
     console.log(
       "Matches",
@@ -129,7 +147,7 @@ export function GameWrapper({}: Props) {
   const doRoll = () => {
     // roll each die which are not being held.
     if (!game) return;
-    const newDice = game.dice.map((die) =>
+    let newDice = game.dice.map((die) =>
       die.hold
         ? die
         : {
@@ -137,12 +155,22 @@ export function GameWrapper({}: Props) {
             hold: die.hold,
           }
     );
+    // following used to test rare combos
+    // newDice = _setDice([1, 2, 1, 1, 2]); // debug
     evaluateCurrentDice(newDice);
     setGame({
       ...game,
       rollsLeft: game.rollsLeft > 0 ? game.rollsLeft - 1 : 0,
       dice: newDice,
     });
+  };
+
+  const _setDice = (initialDice: number[]) => {
+    // utility to return a specific set of dice, used for testing
+    const newDice = initialDice.map((die) => {
+      return { roll: die, hold: false };
+    });
+    return newDice;
   };
 
   const toggleHold = (dieNumber: number) => {
@@ -163,7 +191,10 @@ export function GameWrapper({}: Props) {
   };
 
   if (!game) {
+    console.clear();
     resetGame();
+
+    console.log("game", game);
   }
 
   return <DiceBoard triggerHold={toggleHold} triggerRoll={doRoll} gameState={game} />;
