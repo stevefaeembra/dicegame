@@ -44,6 +44,7 @@ export function GameWrapper({}: Props) {
     // work out which score categories match the current dice
     const rolls = dice.map((die) => die.roll).sort();
     const rollsString = rolls.join("");
+    // TODO: do a version which deduped
     console.log("rollsString", rollsString);
     const possibleScores = [];
     // ones to sixes
@@ -84,7 +85,19 @@ export function GameWrapper({}: Props) {
 
     // four in a row
 
-    const fourinarow = ["1234", "2345", "3456"];
+    const fourinarow = [
+      "1234",
+      "12234",
+      "12334",
+      "2345",
+      "22345",
+      "223345",
+      "23445",
+      "3456",
+      "33456",
+      "34456",
+      "34556",
+    ];
 
     const findFourInARow = fourinarow.find((a) => rollsString.indexOf(a) != -1);
     if (findFourInARow) {
@@ -101,7 +114,7 @@ export function GameWrapper({}: Props) {
     // five of a kind
     const fiveofakind = ["11111", "22222", "33333", "44444", "55555", "66666"];
 
-    const findFiveOfAKind = fourofakind.find((a) => rollsString.indexOf(a) != -1);
+    const findFiveOfAKind = fiveofakind.find((a) => rollsString.indexOf(a) != -1);
     if (findFiveOfAKind) {
       possibleScores.push(11);
     }
