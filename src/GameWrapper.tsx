@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DiceBoard from "./DiceBoard";
-import { Die, GameState } from "./Types";
+import { Category, Die, GameState } from "./Types";
 import { getPips, scoreChance, scoreMatching, scoreSpecificCategory } from "./Utils";
 
 type Props = {};
@@ -40,7 +40,7 @@ export function GameWrapper({}: Props) {
     console.log("new game", newGame);
   };
 
-  const evaluateCurrentDice = (dice: Die[]) => {
+  const evaluateCurrentDice = (dice: Die[]): Category[] => {
     // work out which score categories match the current dice
     const rolls = dice.map((die) => die.roll).sort();
     const rollsString = rolls.join("");
@@ -137,16 +137,34 @@ export function GameWrapper({}: Props) {
     // chance
     possibleScores.push(12);
 
-    console.log(
-      "Matches",
-      possibleScores.map((id) => {
-        return {
-          id,
-          name: game?.scores[id - 1].name,
-          score: scoreSpecificCategory(dice, id),
-        };
-      })
-    );
+    const matchingCategories = possibleScores.map((id) => {
+      const score = scoreSpecificCategory(dice, id);
+      return {
+        id,
+        name: game?.scores[id - 1].name,
+        score,
+        disabled: false,
+      };
+    });
+
+    return matchingCategories;
+  };
+
+  const _mergeScores = (possibleCategories: Category[]) => {
+    // update scoreboard with possible scoring categories
+    // only update ones set to disabled=false as the user has
+    // used these categories
+    const newScores = game?.scores.map((category) => {
+      const replacement = possibleCategories.find((cat) => cat.id === category.id);
+      if (category.score && category.disabled) {
+        return category;
+      }
+      if (!category.disabled && replacement) {
+        return replacement;
+      }
+      return category;
+    });
+    return newScores;
   };
 
   const doRoll = () => {
@@ -162,11 +180,13 @@ export function GameWrapper({}: Props) {
     );
     // following used to test rare combos
     // newDice = _setDice([1, 4, 5, 1, 3]); // debug
-    evaluateCurrentDice(newDice);
+    const newScoreCategories = evaluateCurrentDice(newDice);
+    const mergedScoreboard = _mergeScores(newScoreCategories);
     setGame({
       ...game,
       rollsLeft: game.rollsLeft > 0 ? game.rollsLeft - 1 : 0,
       dice: newDice,
+      scores: mergedScoreboard,
     });
   };
 
@@ -198,8 +218,6 @@ export function GameWrapper({}: Props) {
   if (!game) {
     console.clear();
     resetGame();
-
-    console.log("game", game);
   }
 
   return <DiceBoard triggerHold={toggleHold} triggerRoll={doRoll} gameState={game} />;
