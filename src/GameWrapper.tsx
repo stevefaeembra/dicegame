@@ -156,13 +156,19 @@ export function GameWrapper({}: Props) {
     // used these categories
     const newScores = game?.scores.map((category) => {
       const replacement = possibleCategories.find((cat) => cat.id === category.id);
-      if (category.score && category.disabled) {
+      if (category.disabled) {
+        // user has locked in the score
         return category;
       }
       if (!category.disabled && replacement) {
+        // show possible scoring opportunity
         return replacement;
       }
-      return category;
+      return {
+        // clear out scores which are no longer applicable
+        ...category,
+        score: 0,
+      };
     });
     return newScores;
   };
