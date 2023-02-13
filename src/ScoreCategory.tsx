@@ -6,13 +6,13 @@ type Props = {
 };
 
 export default function ScoreCategory({ category }: Props) {
-  let maincolor = "btn-block my-0";
+  let maincolor = "btn-block";
   if (!category.disabled && category.score > 0) {
-    maincolor = "btn-block my-0 btn-accent";
+    maincolor = "btn-block btn-accent";
   }
   return (
     <div>
-      <button key={`btn_${category.id}`} className={`${maincolor}`}>
+      <button key={`btn_${category.id}`} className={`px-1 ${maincolor}`}>
         {category.name}&nbsp;
         {category.score ? <div className="badge">{category.score}</div> : ""}
       </button>
