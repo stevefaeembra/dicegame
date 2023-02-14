@@ -8,9 +8,10 @@ type Props = {
   gameState: GameState;
   triggerRoll: Function;
   triggerHold: Function;
+  acceptScore: Function;
 };
 
-export default function DiceBoard({ gameState, triggerRoll, triggerHold }: Props) {
+export default function DiceBoard({ gameState, triggerRoll, triggerHold, acceptScore }: Props) {
   if (!gameState) return;
   return (
     <div className="container grid mx-auto grid-rows-3">
@@ -35,7 +36,7 @@ export default function DiceBoard({ gameState, triggerRoll, triggerHold }: Props
         <DiceCard triggerHold={() => triggerHold(4)} die={gameState.dice[4]} />
       </div>
       {/* scorecard */}
-      {gameState.rollsLeft < 3 ? <ScoreCard game={gameState} /> : null}
+      {gameState.rollsLeft < 3 ? <ScoreCard acceptScore={acceptScore} game={gameState} /> : null}
     </div>
   );
 }

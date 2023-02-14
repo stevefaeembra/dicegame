@@ -221,10 +221,18 @@ export function GameWrapper({}: Props) {
     });
   };
 
+  const acceptScore = (categoryId: number) => {
+    if (!categoryId || !game) {
+      return;
+    }
+    const chosenCategory = game.scores.find((cat) => cat.id === categoryId);
+    alert(`You accepted ${chosenCategory.score} points on ${chosenCategory.name}`);
+  };
+
   if (!game) {
     console.clear();
     resetGame();
   }
 
-  return <DiceBoard triggerHold={toggleHold} triggerRoll={doRoll} gameState={game} />;
+  return <DiceBoard acceptScore={acceptScore} triggerHold={toggleHold} triggerRoll={doRoll} gameState={game} />;
 }
