@@ -19,15 +19,8 @@ export default function DiceBoard({ gameState, triggerRoll, triggerHold, acceptS
   return (
     <div className="container grid mx-auto grid-rows-3">
       {/* logo */}
-      <div className="mx-auto my-0 w-100 h-100 grid items-start gap-0 grid-cols-6">
-        <div></div>
-        <figure className="col-span-3 grow mx-auto">
-          <img className="object-cover w-48" src="/img/logo.png" />
-        </figure>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+      <div className="mx-auto my-0 w-100 h-100 grid items-start gap-0 grid-cols-1">
+        <h1 className="text-secondary">High Roller</h1>
       </div>
       {/* dice board */}
       {!isGameOver ? (
