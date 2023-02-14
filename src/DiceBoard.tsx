@@ -19,7 +19,7 @@ export default function DiceBoard({ gameState, triggerRoll, triggerHold, acceptS
   return (
     <div className="container grid mx-auto grid-rows-3">
       {/* logo */}
-      <div className="mx-auto my-0 w-100 h-100 grid items-start gap-0 grid-cols-1">
+      <div className="mx-auto my-0 w-100 grid items-start gap-0">
         <h1 className="text-secondary">High Roller</h1>
       </div>
       {/* dice board */}

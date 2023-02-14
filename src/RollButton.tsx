@@ -10,7 +10,11 @@ export default function RollButton({ rollsLeft, triggerRoll }: Props) {
   return (
     <div>
       <figure>
-        <img onClick={() => triggerRoll()} className="object-contain shadow-2xl" src={rollsFileName}></img>
+        <img
+          onClick={() => (rollsLeft > 0 ? triggerRoll() : () => {})}
+          className="object-contain shadow-2xl"
+          src={rollsFileName}
+        ></img>
       </figure>
     </div>
   );
