@@ -15,7 +15,10 @@ export default function ScoreCard({ game, acceptScore }: Props) {
     <div className="mx-auto my-0 w-100 grid items-start gap-0 grid-cols-6">
       {game.scores.map((cat, ix) => (
         <div key={`score_${ix}`}>
-          <ScoreCategory acceptScore={cat.disabled ? () => {} : () => acceptScore(ix + 1)} category={cat} />
+          <ScoreCategory
+            acceptScore={cat.disabled || game.rollsLeft === 3 ? () => {} : () => acceptScore(ix + 1)}
+            category={cat}
+          />
         </div>
       ))}
       {<button className="btn-block btn-accent">{total} pts.</button>}
