@@ -98,19 +98,7 @@ export function GameWrapper({}: Props) {
 
     // four in a row
 
-    const fourinarow = [
-      "1234",
-      "12234",
-      "12334",
-      "2345",
-      "22345",
-      "223345",
-      "23445",
-      "3456",
-      "33456",
-      "34456",
-      "34556",
-    ];
+    const fourinarow = ["1234", "12234", "12334", "2345", "22345", "23345", "23445", "3456", "33456", "34456", "34556"];
 
     const findFourInARow = fourinarow.find((a) => rollsString.indexOf(a) != -1);
     if (findFourInARow) {
