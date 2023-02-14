@@ -7,6 +7,7 @@ type Props = {};
 
 export function GameWrapper({}: Props) {
   const [game, setGame] = useState<GameState>();
+  const [gameOver, setGameOver] = useState(false);
 
   const resetGame = () => {
     const newGame: GameState = {
@@ -222,6 +223,10 @@ export function GameWrapper({}: Props) {
   };
 
   const acceptScore = (categoryId: number) => {
+    // accept a score category by clicking on its button.
+    // this updates the scoreboard and advances to the next round
+    // if all score categories are disabled, it's the end of the game
+    // so trigger the modal.
     if (!categoryId || !game) {
       return;
     }
@@ -243,6 +248,11 @@ export function GameWrapper({}: Props) {
       ],
       scores: cleanedScores,
     });
+    // if every score category filled, trigger new game
+    if (cleanedScores.every((cat) => cat.disabled)) {
+      console.log("set game over");
+      setGameOver(true);
+    }
   };
 
   if (!game) {
@@ -250,5 +260,13 @@ export function GameWrapper({}: Props) {
     resetGame();
   }
 
-  return <DiceBoard acceptScore={acceptScore} triggerHold={toggleHold} triggerRoll={doRoll} gameState={game} />;
+  return (
+    <DiceBoard
+      isGameOver={gameOver}
+      acceptScore={acceptScore}
+      triggerHold={toggleHold}
+      triggerRoll={doRoll}
+      gameState={game}
+    />
+  );
 }
