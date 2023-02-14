@@ -36,7 +36,7 @@ export default function DiceBoard({ gameState, triggerRoll, triggerHold, acceptS
         <DiceCard triggerHold={() => triggerHold(4)} die={gameState.dice[4]} />
       </div>
       {/* scorecard */}
-      {gameState.rollsLeft < 3 ? <ScoreCard acceptScore={acceptScore} game={gameState} /> : null}
+      {<ScoreCard acceptScore={acceptScore} game={gameState} />}
     </div>
   );
 }

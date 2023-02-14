@@ -226,7 +226,23 @@ export function GameWrapper({}: Props) {
       return;
     }
     const chosenCategory = game.scores.find((cat) => cat.id === categoryId);
-    alert(`You accepted ${chosenCategory.score} points on ${chosenCategory.name}`);
+    // replace existing scores, disable the chosen score category
+    const newCategory = { ...chosenCategory, disabled: true };
+    const newScores = game.scores.map((cat) => (cat.id === categoryId ? newCategory : cat));
+    // next, remove scores from all non-disabled categories for next round
+    const cleanedScores = newScores.map((cat) => (cat.disabled ? cat : { ...cat, score: 0 }));
+    setGame({
+      ...game,
+      rollsLeft: 3, // start new Round
+      dice: [
+        { roll: 0, hold: false },
+        { roll: 0, hold: false },
+        { roll: 0, hold: false },
+        { roll: 0, hold: false },
+        { roll: 0, hold: false },
+      ],
+      scores: cleanedScores,
+    });
   };
 
   if (!game) {
