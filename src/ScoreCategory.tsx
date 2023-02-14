@@ -6,9 +6,9 @@ type Props = {
 };
 
 export default function ScoreCategory({ category }: Props) {
-  let maincolor = "btn-outline btn-block";
+  let maincolor = "btn-neutral btn-block";
   if (!category.disabled && category.score > 0) {
-    maincolor = "btn-outline btn-block btn-accent";
+    maincolor = " btn-block btn-accent";
   }
   return (
     <div>
