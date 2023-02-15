@@ -23,7 +23,7 @@ export default function GameOver({ game }: Props) {
   return (
     <div className="grid">
       <div className="row">
-        <h1 className="text-secondary">Game Over!</h1>
+        <h1 className="text-secondary">{total > highScore ? "New high score!" : "Game over!"}</h1>
         <h1 className="text-secondary">You scored {total}</h1>
         <h1 className="text-secondary">High Score {total > highScore ? total : highScore}</h1>
       </div>
