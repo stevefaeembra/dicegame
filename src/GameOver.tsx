@@ -11,21 +11,21 @@ export default function GameOver({ game }: Props) {
 
   const updateHighScore = (total: number) => {
     if (total > highScore) {
-      console.log("New high score", total);
       setHighScore(total);
     }
   };
 
-  console.log("Showing game over modal");
   const scores = game.scores.map((cat) => (cat.disabled ? cat.score : 0));
   const total = scores.reduce((a, b) => a + b, 0);
 
   return (
     <div className="grid">
       <div className="row">
+        <h1 className="text-secondary text-3xl">&nbsp;</h1>
         <h1 className="text-secondary text-3xl">{total > highScore ? "New high score!" : "Game over!"}</h1>
         <h1 className="text-secondary text-xl">You scored {total}</h1>
         <h1 className="text-secondary text-xl">High Score {total > highScore ? total : highScore}</h1>
+        <h1 className="text-secondary text-3xl">&nbsp;</h1>
       </div>
       <div className="row">
         <button

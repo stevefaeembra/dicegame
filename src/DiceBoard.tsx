@@ -15,12 +15,11 @@ type Props = {
 
 export default function DiceBoard({ gameState, triggerRoll, triggerHold, acceptScore, isGameOver }: Props) {
   if (!gameState) return;
-  console.log("Diceboard game over", isGameOver);
   return (
     <div className="container flex flex-col  mx-auto">
       {/* logo */}
       <div className="mx-auto my-0 h-20 flex items-start gap-0">
-        <h1 className="text-secondary">High Roller</h1>
+        <h1 className="text-primary">High Roller</h1>
       </div>
       {/* dice board */}
       {!isGameOver ? (

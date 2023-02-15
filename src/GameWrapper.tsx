@@ -13,14 +13,12 @@ export function GameWrapper({}: Props) {
   const resetGame = () => {
     const newGame: GameState = NEW_GAME_STATE;
     setGame(newGame);
-    console.log("new game", newGame);
   };
 
   const evaluateCurrentDice = (dice: Die[]): Category[] => {
     // work out which score categories match the current dice
     const rolls = dice.map((die) => die.roll).sort();
     const rollsString = rolls.join("");
-    console.log("rolls:", rollsString);
     const possibleScores = [];
 
     // ones to sixes
@@ -207,7 +205,6 @@ export function GameWrapper({}: Props) {
     });
     // if every score category filled, trigger new game
     if (cleanedScores.every((cat) => cat.disabled)) {
-      console.log("set game over");
       setGameOver(true);
     }
   };
