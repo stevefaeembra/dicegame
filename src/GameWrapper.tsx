@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { DEFAULT_DICE, NEW_GAME_STATE } from "./Constants";
 import DiceBoard from "./DiceBoard";
 import { Category, Die, GameState } from "./Types";
 import { getPips, scoreChance, scoreMatching, scoreSpecificCategory } from "./Utils";
@@ -10,33 +11,7 @@ export function GameWrapper({}: Props) {
   const [gameOver, setGameOver] = useState(false);
 
   const resetGame = () => {
-    const newGame: GameState = {
-      roundsPlayed: 0,
-      rollsLeft: 3,
-      dice: [
-        { roll: 0, hold: false },
-        { roll: 0, hold: false },
-        { roll: 0, hold: false },
-        { roll: 0, hold: false },
-        { roll: 0, hold: false },
-      ],
-      scores: [
-        { id: 1, name: "Ones", score: 0, disabled: false },
-        { id: 2, name: "Twos", score: 0, disabled: false },
-        { id: 3, name: "Threes", score: 0, disabled: false },
-        { id: 4, name: "Fours", score: 0, disabled: false },
-        { id: 5, name: "Fives", score: 0, disabled: false },
-        { id: 6, name: "Sixes", score: 0, disabled: false },
-        { id: 7, name: "2 & 3", score: 0, disabled: false },
-        { id: 8, name: "4 Line", score: 0, disabled: false },
-        { id: 9, name: "12345", score: 0, disabled: false },
-        { id: 10, name: "23456", score: 0, disabled: false },
-        { id: 11, name: "Yacht", score: 0, disabled: false },
-        { id: 12, name: "Chance", score: 0, disabled: false },
-        { id: 13, name: "3OAK", score: 0, disabled: false },
-        { id: 14, name: "4OAK", score: 0, disabled: false },
-      ],
-    };
+    const newGame: GameState = NEW_GAME_STATE;
     setGame(newGame);
     console.log("new game", newGame);
   };
@@ -227,13 +202,7 @@ export function GameWrapper({}: Props) {
     setGame({
       ...game,
       rollsLeft: 3, // start new Round
-      dice: [
-        { roll: 0, hold: false },
-        { roll: 0, hold: false },
-        { roll: 0, hold: false },
-        { roll: 0, hold: false },
-        { roll: 0, hold: false },
-      ],
+      dice: DEFAULT_DICE,
       scores: cleanedScores,
     });
     // if every score category filled, trigger new game
