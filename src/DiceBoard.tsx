@@ -17,9 +17,9 @@ export default function DiceBoard({ gameState, triggerRoll, triggerHold, acceptS
   if (!gameState) return;
   console.log("Diceboard game over", isGameOver);
   return (
-    <div className="container grid mx-auto grid-rows-3">
+    <div className="container flex flex-col  mx-auto">
       {/* logo */}
-      <div className="mx-auto my-0 w-100 grid items-start gap-0">
+      <div className="mx-auto my-0 h-20 flex items-start gap-0">
         <h1 className="text-secondary">High Roller</h1>
       </div>
       {/* dice board */}

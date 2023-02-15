@@ -21,7 +21,7 @@ export default function ScoreCard({ game, acceptScore }: Props) {
           />
         </div>
       ))}
-      {<button className="btn-block btn-accent">{total} pts.</button>}
+      {<button className="m-1 btn-block btn-accent">{total} pts.</button>}
     </div>
   );
 }
