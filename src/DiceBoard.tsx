@@ -18,9 +18,10 @@ export default function DiceBoard({ gameState, triggerRoll, triggerHold, acceptS
   return (
     <div className="container flex flex-col  mx-auto">
       {/* logo */}
-      <div className="mx-auto my-4 h-20 flex items-start gap-0">
-        <h1 className="mt-4 text-accent">High Roller</h1>
-      </div>
+      <div
+        className="mx-auto hero w-3/4 h-56 bg-opacity-50"
+        style={{ objectFit: "scale-down", backgroundImage: `url("/img/dices6alpha.png")` }}
+      ></div>
       {/* dice board */}
       {!isGameOver ? (
         <div className="mx-auto my-4 w-3/4 grid items-start gap-0 grid-cols-6">
