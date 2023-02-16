@@ -4,6 +4,10 @@
 
 ---
 
+![Game screenshot](./public/screenshot.png)
+
+---
+
 - Game consists of 14 rounds.
 
 - At the start of each round, you cast five dice.
