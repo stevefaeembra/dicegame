@@ -16,6 +16,8 @@ export function GameWrapper({}: Props) {
   };
 
   const evaluateCurrentDice = (dice: Die[]): Category[] => {
+    if (!game) return [];
+
     // work out which score categories match the current dice
     const rolls = dice.map((die) => die.roll).sort();
     const rollsString = rolls.join("");
@@ -103,7 +105,7 @@ export function GameWrapper({}: Props) {
       const score = scoreSpecificCategory(dice, id);
       return {
         id,
-        name: game?.scores[id - 1].name,
+        name: game.scores[id - 1].name,
         score,
         disabled: false,
       };
@@ -116,7 +118,8 @@ export function GameWrapper({}: Props) {
     // update scoreboard with possible scoring categories
     // only update ones set to disabled=false as the user has
     // used these categories
-    const newScores = game?.scores.map((category) => {
+    if (!game) return [];
+    const newScores = game.scores.map((category) => {
       const replacement = possibleCategories.find((cat) => cat.id === category.id);
       if (category.disabled) {
         // user has locked in the score
@@ -201,6 +204,7 @@ export function GameWrapper({}: Props) {
       ...game,
       rollsLeft: 3, // start new Round
       dice: DEFAULT_DICE,
+      // @ts-ignore
       scores: cleanedScores,
     });
     // if every score category filled, trigger new game

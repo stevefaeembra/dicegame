@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function ScoreCard({ game, acceptScore }: Props) {
-  if (!game) return;
+  if (!game) return null;
   const scores = game.scores.map((cat) => (cat.disabled ? cat.score : 0));
   const total = scores.reduce((a, b) => a + b, 0);
   return (

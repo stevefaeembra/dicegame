@@ -16,7 +16,7 @@ export default function ScoreCategory({ category, acceptScore }: Props) {
   }
   return (
     <div>
-      <button onClick={acceptScore} key={`btn_${category.id}`} className={`px-1 ${maincolor}`}>
+      <button onClick={() => acceptScore} key={`btn_${category.id}`} className={`px-1 ${maincolor}`}>
         {category.name}&nbsp;
         {category.score > 0 || category.disabled ? <div className="badge">{category.score}</div> : ""}
       </button>
